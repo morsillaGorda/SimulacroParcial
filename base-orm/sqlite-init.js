@@ -224,6 +224,112 @@ async function CrearBaseSiNoExiste() {
     );
   }
 
+
+  existe = false;
+  sql =
+    "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'hoteles'";
+  res = await db.get(sql, []);
+  if (res.contar > 0) existe = true;
+  if (!existe) {
+    await db.run(
+      `CREATE table hoteles( 
+        IdHotel INTEGER PRIMARY KEY AUTOINCREMENT
+      , NombreFantasia TEXT NOT NULL UNIQUE
+      , Habitaciones INTEGER NOT NULL
+      );`
+    );
+    console.log("tabla hoteles creada!");
+
+    await db.run(
+      `INSERT INTO hoteles (NombreFantasia, Habitaciones)
+      VALUES 
+          ('THE RITZ LONDON', 300),
+          ('WALDORF ASTORIA NEW YORK', 1500),
+          ('BURJ AL ARAB', 202),
+          ('HOTEL DU CAP-EDEN-ROC', 118),
+          ('BELMOND COPACABANA PALACE', 239),
+          ('HOTEL PLAZA ATHENEE', 208),
+          ('THE PENINSULA HONG KONG', 300),
+          ('THE SAVOY', 268),
+          ('MANDARIN ORIENTAL BANGKOK', 393),
+          ('HOTEL DE PARIS MONTE-CARLO', 207),
+          ('ATLANTIS THE PALM', 1539),
+          ('THE SHANGRI-LA HOTEL, PARIS', 101),
+          ('PALMS CASINO RESORT', 703),
+          ('THE LANGHAM, LONDON', 380),
+          ('MARINA BAY SANDS', 2561),
+          ('HOTEL DEL CORONADO', 757),
+          ('THE PLAZA HOTEL', 282),
+          ('BURJ KHALIFA', 196),
+          ('LE MEURICE', 160),
+          ('MANDARIN ORIENTAL, NEW YORK', 244),
+          ('THE DORCHESTER', 250),
+          ('FAIRMONT LE CHATEAU FRONTENAC', 611),
+          ('HOTEL HASSLER ROMA', 87),
+          ('THE WESTIN PALACE MADRID', 470),
+          ('THE BEVERLY HILLS HOTEL', 208),
+          ('HOTEL NATIONAL MOSCOW', 202),
+          ('THE ROYAL CRESCENT HOTEL & SPA', 45),
+          ('HOTEL ALFONSO XIII', 151),
+          ('THE RITZ-CARLTON, TOKYO', 245),
+          ('PALACE HOTEL TOKYO', 278);
+      `
+    );
+  }
+
+  existe = false;
+  sql =
+    "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'pacientes'";
+  res = await db.get(sql, []);
+  if (res.contar > 0) existe = true;
+  if (!existe) {
+    await db.run(
+      `CREATE table pacientes( 
+        IdPaciente INTEGER PRIMARY KEY AUTOINCREMENT
+      , ApeNomPaciente TEXT NOT NULL UNIQUE
+      , NroHCPaciente INTEGER NOT NULL UNIQUE
+      , DomicilioPaciente TEXT NOT NULL
+      );`
+    );
+    console.log("tabla pacientes creada!");
+
+    await db.run(
+      `INSERT INTO pacientes (ApeNomPaciente, NroHCPaciente,DomicilioPaciente)
+      VALUES 
+      ('LOPEZ, JUAN', 12345, 'AVENIDA SANTA FE 123'),
+   ('GOMEZ, MARIA', 23456, 'CALLE MITRE 456'),
+   ('RODRIGUEZ, CARLOS', 34567, 'AVENIDA CORDOBA 789'),
+   ('MARTINEZ, LAURA', 45678, 'CALLE SUIPACHA 987'),
+   ('GONZALEZ, PABLO', 56789, 'AVENIDA 9 DE JULIO 654'),
+   ('SANCHEZ, ANDREA', 67890, 'CALLE CORRIENTES 321'),
+   ('ROMERO, LUCAS', 78901, 'AVENIDA CALLAO 246'),
+   ('FERNANDEZ, SOFIA', 89012, 'CALLE FLORIDA 135'),
+   ('TORRES, MARTIN', 90123, 'AVENIDA RIVADAVIA 579'),
+   ('RAMIREZ, ANA', 10111, 'CALLE BELGRANO 753'),
+   ('ACOSTA, JUAN', 11122, 'AVENIDA SAN MARTIN 864'),
+   ('PEREZ, MARIA', 12233, 'CALLE SANTA ROSA 975'),
+   ('GARCIA, CARLOS', 13344, 'AVENIDA LA PLATA 678'),
+   ('GOMEZ, LAURA', 14455, 'CALLE SUIPACHA 987'),
+   ('LOPEZ, PABLO', 15566, 'AVENIDA 9 DE JULIO 654'),
+   ('SANCHEZ, ANDRES', 16677, 'CALLE CORRIENTES 321'),
+   ('ROMERO, LUCIA', 17788, 'AVENIDA CALLAO 246'),
+   ('FERNANDEZ, MARTIN', 18899, 'CALLE FLORIDA 135'),
+   ('TORRES, ANA', 19000, 'AVENIDA RIVADAVIA 579'),
+   ('RAMIREZ, JUAN', 20111, 'CALLE BELGRANO 753'),
+   ('ACOSTA, MARIA', 21122, 'AVENIDA SAN MARTIN 864'),
+   ('PEREZ, CARLOS', 22233, 'CALLE SANTA ROSA 975'),
+   ('GARCIA, LAURA', 23344, 'AVENIDA LA PLATA 678'),
+   ('LOPEZ, MARTA', 24455, 'CALLE SUIPACHA 987'),
+   ('GOMEZ, ANDREA', 25566, 'AVENIDA 9 DE JULIO 654'),
+   ('RODRIGUEZ, LUCAS', 26677, 'CALLE CORRIENTES 321'),
+   ('MARTINEZ, SOFIA', 27788, 'AVENIDA CALLAO 246'),
+   ('GONZALEZ, MARTIN', 28899, 'CALLE FLORIDA 135'),
+   ('SANCHEZ, ANA', 29000, 'AVENIDA RIVADAVIA 579'),
+   ('ROMERO, JUAN', 30111, 'CALLE BELGRANO 753');`
+    );
+  }
+
+
   // cerrar la base
   db.close();
 }
